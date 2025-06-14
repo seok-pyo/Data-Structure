@@ -42,8 +42,7 @@ int main()
 	int c, i, j;
 	c = 1;
 	// Initialize the linked list 1 as an empty linked list
-	// head 변수는 포인터 변수인건가? 그냥 바로 .으로 접근할 수 있는 건가?
-	ll.head = NULL; // Null 포인터
+	ll.head = NULL;
 	ll.size = 0;
 
 	printf("1: Insert an integer to the linked list:\n");
@@ -58,7 +57,6 @@ int main()
 		switch (c)
 		{
 		case 1:
-			// 입력값을 받아서 링크드 리스트에 노드 추가
 			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
 			j = insertNode(&ll, ll.size, i);
@@ -66,11 +64,10 @@ int main()
 			printList(&ll);
 			break;
 		case 2:
-			// ll.head는 포인터?
-			RecursiveReverse(&(ll.head)); // You need to code this function // ll.head는 *head를 의미하는 건가? 그럼 ll.head 값이 들어있는 주소를 말하는 건가?
+			RecursiveReverse(&(ll.head)); // You need to code this function
 			printf("The resulting linked list after reversed the given linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			// removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -85,32 +82,25 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
-void RecursiveReverse(ListNode **ptrHead) // **ptrHead가 들어간 이유? *head의 주소값을 가져오기 위해서?
+void RecursiveReverse(ListNode **ptrHead) //
 {
-	/*
-		1. head 포인터와 next 포인터의 방향을 바꿔서 방향을 바꾼다.
-		2. 재귀로 구현해 본다.
-		(1,2,3,4,5) -> (5,4,3,2,1)
-	*/
-
-	// 1. printf("%p", ptrHead); -> 0x16b0e2ca0
-	// 2. printf("%p", *ptrHead); -> 0x133704080 -> 1번과 2번의 차이점은?
-	// 3. printf("%p", **ptrHead); warning: format specifies type 'void * but the argument has type 'ListNode' (aka 'struct_listnode)'
-	// 이중포인터?
-	// lvalue / rvalue
-	// &(ll.head)
 
 	ListNode *cur = *ptrHead;
+
+	// 기저 조건
 	if (cur->next == NULL || cur == NULL)
 		return;
 
-	ListNode *nxt = cur->next;
+	ListNode *nxt = cur->next; // next 포인터 접근
+	// 재귀 호출 하기 전에 nxt 포인터 갱신
 
-	RecursiveReverse(&nxt);
+	RecursiveReverse(&nxt); // nxt 포인터의 주소를 넘겨준다. 이중 포인터
 
+	// cur > cur 포인터 방향 역순으로 연경
 	cur->next->next = cur;
 	cur->next = NULL;
 
+	// 최종적으로 헤드 노드 연결
 	*ptrHead = nxt;
 }
 
@@ -134,7 +124,7 @@ void printList(LinkedList *ll)
 	printf("\n");
 }
 
-ListNode *findNode(LinkedList *ll, int index) // 포인터를 반환하는 함수?
+ListNode *findNode(LinkedList *ll, int index)
 {
 
 	ListNode *temp;
@@ -142,13 +132,12 @@ ListNode *findNode(LinkedList *ll, int index) // 포인터를 반환하는 함�
 	if (ll == NULL || index < 0 || index >= ll->size)
 		return NULL;
 
-	temp = ll->head; // head 노드에서부터 선형적으로 탐색?
-	// index는 head 노드에서부터 떨어진 거리?
+	temp = ll->head;
 
 	if (temp == NULL || index < 0)
 		return NULL;
 
-	while (index > 0) // index가 0이 되면, 원하는 포지션을 찾으면
+	while (index > 0)
 	{
 		temp = temp->next;
 		if (temp == NULL)
@@ -171,9 +160,9 @@ int insertNode(LinkedList *ll, int index, int value)
 	if (ll->head == NULL || index == 0)
 	{
 		cur = ll->head;
-		ll->head = malloc(sizeof(ListNode)); // malloc 함수를 사용하는 이유? -> 리스트 노드의 크기를 특정할 수 없기 때문에.
+		ll->head = malloc(sizeof(ListNode)); // ListNode 크기만큼의 메모리를 동적으로 할당. 해당 주소를 ll->head에 저장
 		ll->head->item = value;
-		ll->head->next = cur; // head와 next가 모두 cur이 되는 건가?
+		ll->head->next = cur; // 맨 처음 헤드는 자신을 next로 설정
 		ll->size++;
 		return 0;
 	}
@@ -184,7 +173,7 @@ int insertNode(LinkedList *ll, int index, int value)
 	{
 		cur = pre->next;
 		// malloc으로 새로운 노드 생성
-		pre->next = malloc(sizeof(ListNode)); // malloc 함수를 사용하는 이유? -> 입력값으로 받아야 하기 때문에? 런타임 시점에 동적으로 생성해야 하기 때문에?
+		pre->next = malloc(sizeof(ListNode)); // 할당한 주소 반환
 		pre->next->item = value;
 		pre->next->next = cur;
 		ll->size++;

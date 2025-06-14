@@ -71,7 +71,7 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			// removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -93,6 +93,44 @@ int insertSortedLL(LinkedList *ll, int item)
 		2. 기존에 존재하고 있는 데이터라면 삽입하지 않는다.
 		3. 새로운 노드가 생성이 되면 인덱스를 반환한다. 단, 삽입이 되지 않는다면 -1을 반환한다.
 	*/
+
+	if (ll == NULL)
+		return -1;
+
+	ListNode *temp = ll->head;
+	int curindex = 0;
+
+	// 빈 리스트일 경우
+	if (temp == NULL)
+	{
+		insertNode(ll, 0, item);
+		return 0;
+	}
+
+	temp = ll->head;
+
+	while (temp != NULL)
+	{
+		if (temp->item == item)
+		{
+			return -1;
+		}
+		if (temp->item > item)
+		{
+			insertNode(ll, curindex, item);
+			break;
+		}
+		curindex++;
+		temp = temp->next;
+	}
+
+	if (insertNode(ll, curindex, item) == -1)
+	{
+		return -1;
+	}
+
+	return curindex;
+	// return -1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
