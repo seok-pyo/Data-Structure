@@ -100,30 +100,18 @@ void RecursiveReverse(ListNode **ptrHead) // **ptrHead가 들어간 이유? *hea
 	// lvalue / rvalue
 	// &(ll.head)
 
-	// ListNode *pHead;
-	// pHead = ptrHead;
-
-	// gpt
-	// ListNode *cur;
-	// cur = *ptrHead;
-
-	// printf("%d\n", cur->next);
-
-	ListNode *cur;
-	cur = *ptrHead;
+	ListNode *cur = *ptrHead;
+	if (cur->next == NULL || cur == NULL)
+		return;
 
 	ListNode *nxt = cur->next;
 
-	if (nxt->next == NULL)
-	{
-		cur = nxt;
-		return;
-	}
-	else
-	{
-		nxt = cur;
-		RecursiveReverse(&nxt);
-	}
+	RecursiveReverse(&nxt);
+
+	cur->next->next = cur;
+	cur->next = NULL;
+
+	*ptrHead = nxt;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -183,7 +171,7 @@ int insertNode(LinkedList *ll, int index, int value)
 	if (ll->head == NULL || index == 0)
 	{
 		cur = ll->head;
-		ll->head = malloc(sizeof(ListNode)); // malloc 함수를 사용하는 이유? -> 입력값으로 받아야 하기 때문에?
+		ll->head = malloc(sizeof(ListNode)); // malloc 함수를 사용하는 이유? -> 리스트 노드의 크기를 특정할 수 없기 때문에.
 		ll->head->item = value;
 		ll->head->next = cur; // head와 next가 모두 cur이 되는 건가?
 		ll->size++;
