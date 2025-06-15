@@ -84,7 +84,7 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead) //
 {
-
+	// 이중포인터이기 때문에 *cur에는
 	ListNode *cur = *ptrHead;
 
 	// 기저 조건
@@ -169,7 +169,7 @@ int insertNode(LinkedList *ll, int index, int value)
 
 	// Find the nodes before and at the target position
 	// Create a new node and reconnect the links
-	if ((pre = findNode(ll, index - 1)) != NULL)
+	if ((pre = findNode(ll, index - 1)) != NULL) // 인덱스 번호에서 -1을 뺸다.
 	{
 		cur = pre->next;
 		// malloc으로 새로운 노드 생성
