@@ -84,9 +84,46 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/*
-		1. 모든 짝수 노드를 뒤쪽으로 이동시키는 함수
-	*/
+	// 원소를 확인해서 짝수이면 맨 뒤로 옮긴다.
+	ListNode *cur = ll->head;
+	ListNode *pre = NULL;
+	ListNode *tail = ll->head;
+	ListNode *nxt = cur->next;
+
+	while (tail->next != NULL)
+	{
+		tail = tail->next;
+	}
+
+	int size = ll->size;
+
+	for (int i = 0; i < size; i++)
+	{
+		nxt = cur->next;
+
+		if (cur->item % 2 == 0)
+		{
+			ListNode *moved = cur;
+
+			if (pre == NULL)
+			{
+				ll->head = cur->next;
+			}
+			else
+			{
+				pre->next = cur->next;
+			}
+
+			moved->next = NULL;
+			tail->next = moved;
+			tail = moved;
+		}
+		else
+		{
+			pre = cur;
+		}
+		cur = nxt;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

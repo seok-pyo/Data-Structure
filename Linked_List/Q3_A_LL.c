@@ -84,32 +84,47 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/*
-		1. 홀수인 노드 아이템을 전부 뒤로 이동시키는 함수
-	*/
-	LinkedList *oddList;
+	if (ll == NULL || ll->head == NULL)
+		return;
+
 	ListNode *cur = ll->head;
 	ListNode *pre = NULL;
-	ListNode *nxt = cur->next;
+	ListNode *tail = ll->head;
 
-	while (cur != NULL)
+	// tail 포인터를 리스트의 마지막 노드로 설정
+	while (tail->next != NULL)
+		tail = tail->next;
+
+	ListNode *next;
+	int initSize = ll->size;
+
+	for (int i = 0; i < initSize; i++)
 	{
+		next = cur->next;
+
 		if (cur->item % 2 != 0)
 		{
-			if (oddList->size == 0)
+			ListNode *moved = cur;
+
+			if (pre == NULL)
 			{
-				oddList->head = cur;
+				ll->head = cur->next;
 			}
 			else
 			{
-				oddList->head->next = cur;
-			}
-			if (pre != NULL)
-			{
 				pre->next = cur->next;
 			}
-		};
-		cur = cur->next;
+
+			moved->next = NULL;
+			tail->next = moved;
+			tail = moved;
+		}
+		else
+		{
+			pre = cur;
+		}
+
+		cur = next;
 	}
 }
 
