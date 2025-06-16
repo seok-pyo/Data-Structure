@@ -87,6 +87,30 @@ void moveOddItemsToBack(LinkedList *ll)
 	/*
 		1. 홀수인 노드 아이템을 전부 뒤로 이동시키는 함수
 	*/
+	LinkedList *oddList;
+	ListNode *cur = ll->head;
+	ListNode *pre = NULL;
+	ListNode *nxt = cur->next;
+
+	while (cur != NULL)
+	{
+		if (cur->item % 2 != 0)
+		{
+			if (oddList->size == 0)
+			{
+				oddList->head = cur;
+			}
+			else
+			{
+				oddList->head->next = cur;
+			}
+			if (pre != NULL)
+			{
+				pre->next = cur->next;
+			}
+		};
+		cur = cur->next;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
