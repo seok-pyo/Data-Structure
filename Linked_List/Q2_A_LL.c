@@ -106,6 +106,38 @@ void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 		2. 첫번째 리스트의 교차 위치가 존재해야 한다.
 		3. 첫번째 리스트의 크기가 더 크다면 두번째 리스트는 Empty가 된다.
 	*/
+	/*
+		1, 2, 3
+		4, 5, 6, 7
+		1, 4, 2, 5, 3, 6
+		7
+	*/
+
+	// ListNode *ll1_element = ll1->head;
+	// ListNode *ll2_element = ll2->head;
+	// int ll1_size = ll1->size;
+	// int ll2_size = ll2->size;
+
+	// if (ll1_size < ll2_size)
+	// {
+	// 	while (ll1_element != NULL)
+	// 	{
+	// 		ll1_element->next = ll2_element;
+	// 		ll1_element = ll1_element->next;
+	// 		ll2_element->next = ll1_element;
+	// 		ll2_element = ll2_element->next;
+	// 	}
+	// }
+	// else
+	// {
+	// 	while (ll2_element != NULL)
+	// 	{
+	// 		ll1_element->next = ll2_element;
+	// 		ll1_element = ll1_element->next;
+	// 		ll2_element->next = ll1_element;
+	// 		ll2_element = ll2_element->next;
+	// 	}
+	// }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
