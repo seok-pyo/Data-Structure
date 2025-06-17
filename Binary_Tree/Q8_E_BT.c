@@ -100,17 +100,39 @@ int main()
 int hasGreatGrandchild(BTNode *node)
 {
 
-    int depth = 0;
+    // int depth = 0;
 
     if (node == NULL)
     {
         return 0;
     }
 
-    depth += hasGreatGrandchild(node->left);
-    depth += hasGreatGrandchild(node->right);
+    // 지금 구현한 코드는 왼쪽과 오른쪽의 경로수를 모두 더하는 방법 > 당연한 거임...
+    // depth += hasGreatGrandchild(node->left);
+    // depth += hasGreatGrandchild(node->right);
 
-    if (depth > 3 && node != NULL)
+    ////////////////////////////////////////////////////////////////////////
+
+    // if (hasGreatGrandchild(node->left) > hasGreatGrandchild(node->right))
+    // {
+    //     depth = hasGreatGrandchild(node->left);
+    // }
+    // else
+    // {
+    //     depth = hasGreatGrandchild(node->right);
+    // }
+
+    ////////////////////////////////////////////////////////////////////////
+
+    int leftDepth = hasGreatGrandchild(node->left);
+    int rightDepth = hasGreatGrandchild(node->right);
+
+    int depth = (leftDepth > rightDepth) ? leftDepth : rightDepth;
+
+    ////////////////////////////////////////////////////////////////////////
+
+    // 조건의 판별 시점과 기준을 좀 더 명확하게, 3 '이상'인 경우 포함
+    if (depth >= 3 && node != NULL)
     {
         printf("%d\n", node->item);
     }
